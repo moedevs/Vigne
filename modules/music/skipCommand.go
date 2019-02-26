@@ -23,10 +23,7 @@ func (c SkipCommand) Action(m *discordgo.MessageCreate, args []string, creator *
 	if err != nil {
 		return err
 	}
-	config, err := c.server.Database.Config()
-	if err != nil {
-		return err
-	}
+	config := c.server.Database.Config()
 	if m.ChannelID != db.GetChannel() {
 		return nil
 	}

@@ -1,15 +1,15 @@
 package server
 
 import (
-	"github.com/moedevs/Vigne/database"
-	"github.com/moedevs/Vigne/errors"
 	"github.com/bwmarrin/discordgo"
+	"github.com/moedevs/Vigne/database"
 )
 
 type Server struct {
 	Modules map[string]Module
 	Session *discordgo.Session
 	Database *database.Database
+	config *database.Config
 }
 
 func NewServer(identifier, address, password string) (*Server, error) {
@@ -19,16 +19,7 @@ func NewServer(identifier, address, password string) (*Server, error) {
 	s.Modules = make(map[string]Module)
 	s.Database = database.NewDatabase(identifier, address, password)
 	//Get config from database
-	config, err := s.Database.Config()
-	//If there is no configuration ready
-	if err == errors.NoConfig {
-		//Create default config
-		err = s.Database.CreateConfig()
-		if err != nil {
-			return nil, err
-		}
-		return nil, errors.CreatedConfig
-	}
+	config := s.Database.Config()
 	if err != nil {
 		return nil, err
 	}

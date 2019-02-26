@@ -28,10 +28,7 @@ func (c RolesCommand) Check(cmd string) bool {
 
 func (c RolesCommand) Action(m *discordgo.MessageCreate, args []string, creator *messages.MessageCreator) error {
 	//Get configuration
-	config, err := c.server.Database.Config()
-	if err != nil {
-		return err
-	}
+	config := c.server.Database.Config()
 	if config.IsMod(m.Author.ID) {
 		//User is a moderator. Let's send them the list of roles in this server
 		//Get channel

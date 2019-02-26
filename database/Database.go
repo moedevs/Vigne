@@ -5,6 +5,7 @@ import "github.com/go-redis/redis"
 type Database struct {
 	Redis *redis.Client
 	Identifier string
+	config *Config
 }
 
 func NewDatabase(identifier, address, password string) *Database {
@@ -20,3 +21,4 @@ func NewDatabase(identifier, address, password string) *Database {
 func (d *Database) Decorate(value string) string {
 	return d.Identifier + ":" + value
 }
+

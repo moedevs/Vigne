@@ -23,10 +23,8 @@ func (module CommandsModule) GetName() string {
 
 func (module *CommandsModule) Init(s *server.Server) error {
 	//Get command regex from database
-	config, err := s.Database.Config()
-	if err != nil {
-		return err
-	}
+	config := s.Database.Config()
+	var err error
 	module.Regex, err = regexp.Compile(config.CommandRegex())
 	if err != nil {
 		return err

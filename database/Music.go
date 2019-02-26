@@ -2,25 +2,39 @@ package database
 
 import (
 	"github.com/moedevs/Vigne/errors"
+	"strconv"
 	"time"
 )
 
 type MusicDatabase struct {
+	//TODO: Remove. Legacy, for most uses except for config
 	d *Database
+	MusicChannel StringValue
+	MusicVoiceChannel StringValue
+	PlayLive StringValue
+	MaxDuration StringValue
 }
 
 func (d *Database) Music() (*MusicDatabase, error) {
-	if !d.Redis.HExists(d.Decorate("config"), "musicChannel").Val() {
+	cfgHandler := d.NewConfigHandler()
+	m := MusicDatabase{}
+	m.d = d
+	var exists bool
+	m.MusicChannel, exists = cfgHandler.OptionalValue("musicChannel")
+	if !exists {
 		return nil, errors.NoMusic
 	}
-	if !d.Redis.HExists(d.Decorate("config"), "musicVoiceChannel").Val() {
+	m.MusicVoiceChannel, exists = cfgHandler.OptionalValue("musicVoiceChannel")
+	if !exists {
 		return nil, errors.NoMusic
 	}
-	return &MusicDatabase{d}, nil
+	m.PlayLive, _ = cfgHandler.OptionalValue("canPlayLive")
+	m.MaxDuration, _ = cfgHandler.OptionalValue("maxMusicDuration")
+	return &m, nil
 }
 
 func (d MusicDatabase) GetChannel() string {
-	return d.d.Redis.HGet(d.d.Decorate("config"), "musicChannel").Val()
+	return d.MusicChannel.Get()
 }
 
 func (d MusicDatabase) PopNext() string {
@@ -40,15 +54,15 @@ func (d MusicDatabase) IsValidExtractor(extractor string) bool {
 }
 
 func (d MusicDatabase) GetVoiceChannel() string {
-	return d.d.Redis.HGet(d.d.Decorate("config"), "musicVoiceChannel").Val()
+	return d.MusicVoiceChannel.Get()
 }
 
 func (d MusicDatabase) CanPlay(duration time.Duration) bool {
-	if !d.d.Redis.HExists(d.d.Decorate("config"), "maxMusicDuration").Val() {
+	if d.MaxDuration.Get() == "" {
 		//No maxMusicDuration is set
 		return true
 	}
-	max, err := d.d.Redis.HGet(d.d.Decorate("config"), "maxMusicDuration").Int()
+	max, err := strconv.Atoi(d.MaxDuration.Get())
 	if err != nil {
 		//Couldn't get maxMusicDuration
 		return true
@@ -62,10 +76,10 @@ func (d MusicDatabase) CanPlay(duration time.Duration) bool {
 }
 
 func (d MusicDatabase) CanPlayLive() bool {
-	if d.d.Redis.Exists(d.d.Decorate("canPlayLive")).Val() == 0{
+	if d.PlayLive.Get() == ""{
 		return true
 	}
-	val, err := d.d.Redis.Get(d.d.Decorate("canPlayLive")).Int()
+	val, err := strconv.Atoi(d.PlayLive.Get())
 	if err != nil {
 		return  true
 	}
