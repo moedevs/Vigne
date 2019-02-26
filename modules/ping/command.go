@@ -2,8 +2,8 @@ package ping
 
 import (
 	"fmt"
-	"github.com/bela333/Vigne/commands"
-	"github.com/bela333/Vigne/messages"
+	"github.com/moedevs/Vigne/commands"
+	"github.com/moedevs/Vigne/messages"
 	"github.com/bwmarrin/discordgo"
 	"time"
 )

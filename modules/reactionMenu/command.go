@@ -2,9 +2,9 @@ package reactionMenu
 
 import (
 	"fmt"
-	"github.com/bela333/Vigne/commands"
-	"github.com/bela333/Vigne/messages"
-	"github.com/bela333/Vigne/server"
+	"github.com/moedevs/Vigne/commands"
+	"github.com/moedevs/Vigne/messages"
+	"github.com/moedevs/Vigne/server"
 	"github.com/bwmarrin/discordgo"
 	"time"
 )

@@ -2,9 +2,9 @@ package welcome
 
 import (
 	"fmt"
-	"github.com/bela333/Vigne/database"
-	"github.com/bela333/Vigne/messages"
-	"github.com/bela333/Vigne/server"
+	"github.com/moedevs/Vigne/database"
+	"github.com/moedevs/Vigne/messages"
+	"github.com/moedevs/Vigne/server"
 	"github.com/bwmarrin/discordgo"
 	"time"
 )

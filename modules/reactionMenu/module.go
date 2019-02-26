@@ -1,8 +1,8 @@
 package reactionMenu
 
 import (
-	"github.com/bela333/Vigne/commands"
-	"github.com/bela333/Vigne/server"
+	"github.com/moedevs/Vigne/commands"
+	"github.com/moedevs/Vigne/server"
 )
 
 type ReactionModule struct {

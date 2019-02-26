@@ -2,9 +2,9 @@ package help
 
 import (
 	"fmt"
-	"github.com/bela333/Vigne/commands"
-	"github.com/bela333/Vigne/errors"
-	"github.com/bela333/Vigne/messages"
+	"github.com/moedevs/Vigne/commands"
+	"github.com/moedevs/Vigne/errors"
+	"github.com/moedevs/Vigne/messages"
 	"github.com/bwmarrin/discordgo"
 	"time"
 )

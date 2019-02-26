@@ -2,7 +2,7 @@ package server
 
 import (
 	"fmt"
-	"github.com/bela333/Vigne/errors"
+	"github.com/moedevs/Vigne/errors"
 )
 
 type Module interface {

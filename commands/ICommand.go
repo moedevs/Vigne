@@ -1,7 +1,7 @@
 package commands
 
 import (
-	"github.com/bela333/Vigne/messages"
+	"github.com/moedevs/Vigne/messages"
 	"github.com/bwmarrin/discordgo"
 )
 

@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/bela333/Vigne/errors"
+	"github.com/moedevs/Vigne/errors"
 	"time"
 )
 

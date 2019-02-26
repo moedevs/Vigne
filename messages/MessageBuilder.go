@@ -2,7 +2,7 @@ package messages
 
 import (
 	"fmt"
-	"github.com/bela333/Vigne/errors"
+	"github.com/moedevs/Vigne/errors"
 	"github.com/bwmarrin/discordgo"
 	"time"
 )

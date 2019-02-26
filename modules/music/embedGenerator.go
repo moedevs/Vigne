@@ -2,7 +2,7 @@ package music
 
 import (
 	"fmt"
-	"github.com/bela333/Vigne/messages"
+	"github.com/moedevs/Vigne/messages"
 	"github.com/bwmarrin/discordgo"
 )
 

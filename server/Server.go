@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/bela333/Vigne/database"
-	"github.com/bela333/Vigne/errors"
+	"github.com/moedevs/Vigne/database"
+	"github.com/moedevs/Vigne/errors"
 	"github.com/bwmarrin/discordgo"
 )
 

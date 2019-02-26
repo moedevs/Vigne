@@ -2,9 +2,9 @@ package commands
 
 import (
 	"fmt"
-	"github.com/bela333/Vigne/errors"
-	"github.com/bela333/Vigne/messages"
-	"github.com/bela333/Vigne/server"
+	"github.com/moedevs/Vigne/errors"
+	"github.com/moedevs/Vigne/messages"
+	"github.com/moedevs/Vigne/server"
 	"github.com/bwmarrin/discordgo"
 	"regexp"
 	"strings"

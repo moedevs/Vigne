@@ -2,16 +2,16 @@ package main
 
 import (
 	"fmt"
-	"github.com/bela333/Vigne/commands"
-	"github.com/bela333/Vigne/messages"
-	"github.com/bela333/Vigne/modules/debug"
-	"github.com/bela333/Vigne/modules/help"
-	"github.com/bela333/Vigne/modules/music"
-	"github.com/bela333/Vigne/modules/ping"
-	"github.com/bela333/Vigne/modules/reactionMenu"
-	"github.com/bela333/Vigne/modules/roles"
-	"github.com/bela333/Vigne/modules/welcome"
-	"github.com/bela333/Vigne/server"
+	"github.com/moedevs/Vigne/commands"
+	"github.com/moedevs/Vigne/messages"
+	"github.com/moedevs/Vigne/modules/debug"
+	"github.com/moedevs/Vigne/modules/help"
+	"github.com/moedevs/Vigne/modules/music"
+	"github.com/moedevs/Vigne/modules/ping"
+	"github.com/moedevs/Vigne/modules/reactionMenu"
+	"github.com/moedevs/Vigne/modules/roles"
+	"github.com/moedevs/Vigne/modules/welcome"
+	"github.com/moedevs/Vigne/server"
 )
 
 func main() {

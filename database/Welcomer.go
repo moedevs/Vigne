@@ -1,6 +1,6 @@
 package database
 
-import "github.com/bela333/Vigne/errors"
+import "github.com/moedevs/Vigne/errors"
 
 type Welcomer struct {
 	d *Database
