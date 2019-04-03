@@ -13,7 +13,7 @@ func (d *Database) Roles() (*Roles, error) {
 	roles := Roles{}
 	roles.Database = d
 	//Does it have a role map?
-	hasConfig := d.Redis.Exists(d.Decorate("roles")).Val()
+	hasConfig := d.redis.Exists(d.Decorate("roles")).Val()
 	if hasConfig != 1{
 		return nil, errors.NoRoles
 	}
@@ -22,10 +22,10 @@ func (d *Database) Roles() (*Roles, error) {
 }
 
 func (r Roles) GetRoleIDFromName(name string) (string, error) {
-	return r.Database.Redis.HGet(r.Database.Decorate("roles"), strings.ToLower(name)).Result()
+	return r.Database.redis.HGet(r.Database.Decorate("roles"), strings.ToLower(name)).Result()
 }
 
 func (r Roles) GetAllRoles() map[string]string {
-	mapped := r.Database.Redis.HGetAll(r.Database.Decorate("roles")).Val()
+	mapped := r.Database.redis.HGetAll(r.Database.Decorate("roles")).Val()
 	return mapped
 }

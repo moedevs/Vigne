@@ -1,6 +1,8 @@
 package database
 
 import (
+	"github.com/moedevs/Vigne/database/interfaces"
+	"github.com/moedevs/Vigne/database/redis"
 	"github.com/moedevs/Vigne/errors"
 	"strconv"
 	"time"
@@ -9,14 +11,15 @@ import (
 type MusicDatabase struct {
 	//TODO: Remove. Legacy, for most uses except for config
 	d *Database
-	MusicChannel StringValue
-	MusicVoiceChannel StringValue
-	PlayLive StringValue
-	MaxDuration StringValue
+	MusicChannel interfaces.StringValue
+	MusicVoiceChannel interfaces.StringValue
+	PlayLive interfaces.StringValue
+	MaxDuration interfaces.StringValue
 }
 
 func (d *Database) Music() (*MusicDatabase, error) {
-	cfgHandler := d.NewConfigHandler()
+	//TODO: This ain't right
+	cfgHandler := redis.NewConfigHandler(d)
 	m := MusicDatabase{}
 	m.d = d
 	var exists bool
@@ -38,19 +41,19 @@ func (d MusicDatabase) GetChannel() string {
 }
 
 func (d MusicDatabase) PopNext() string {
-	return d.d.Redis.LPop(d.d.Decorate("musicQueue")).Val()
+	return d.d.redis.LPop(d.d.Decorate("musicQueue")).Val()
 }
 
 func (d MusicDatabase) AddSong(data []byte) error {
-	return d.d.Redis.RPush(d.d.Decorate("musicQueue"), string(data)).Err()
+	return d.d.redis.RPush(d.d.Decorate("musicQueue"), string(data)).Err()
 }
 
 func (d MusicDatabase) IsValidExtractor(extractor string) bool {
-	if d.d.Redis.Exists(d.d.Decorate("validExtractors")).Val() == 0 {
+	if d.d.redis.Exists(d.d.Decorate("validExtractors")).Val() == 0 {
 		//If validExtractors doesn't exist, we accept the extractor anyway
 		return true
 	}
-	return d.d.Redis.SIsMember(d.d.Decorate("validExtractors"), extractor).Val()
+	return d.d.redis.SIsMember(d.d.Decorate("validExtractors"), extractor).Val()
 }
 
 func (d MusicDatabase) GetVoiceChannel() string {

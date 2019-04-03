@@ -7,15 +7,15 @@ type Welcomer struct {
 }
 
 func (d *Database) Welcomer() (*Welcomer, error) {
-	exists := d.Redis.Exists(d.Decorate("welcomer:main")).Val()
+	exists := d.redis.Exists(d.Decorate("welcomer:main")).Val()
 	if exists == 0 {
 		return nil, errors.NoWelcomer
 	}
-	exists = d.Redis.Exists(d.Decorate("welcomer:text:after")).Val()
+	exists = d.redis.Exists(d.Decorate("welcomer:text:after")).Val()
 	if exists == 0 {
 		return nil, errors.NoWelcomer
 	}
-	exists = d.Redis.Exists(d.Decorate("welcomer:text:before")).Val()
+	exists = d.redis.Exists(d.Decorate("welcomer:text:before")).Val()
 	if exists == 0 {
 		return nil, errors.NoWelcomer
 	}
@@ -23,17 +23,17 @@ func (d *Database) Welcomer() (*Welcomer, error) {
 }
 
 func (w *Welcomer) GetMain() string {
-	return w.d.Redis.Get(w.d.Decorate("welcomer:main")).Val()
+	return w.d.redis.Get(w.d.Decorate("welcomer:main")).Val()
 }
 
 func (w *Welcomer) GetSecret() string {
-	return w.d.Redis.Get(w.d.Decorate("welcomer:secret")).Val()
+	return w.d.redis.Get(w.d.Decorate("welcomer:secret")).Val()
 }
 
 func (w *Welcomer) GetTextAfter() string {
-	return w.d.Redis.Get(w.d.Decorate("welcomer:text:after")).Val()
+	return w.d.redis.Get(w.d.Decorate("welcomer:text:after")).Val()
 }
 
 func (w *Welcomer) GetTextBefore() string {
-	return w.d.Redis.Get(w.d.Decorate("welcomer:text:before")).Val()
+	return w.d.redis.Get(w.d.Decorate("welcomer:text:before")).Val()
 }
