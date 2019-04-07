@@ -22,6 +22,8 @@ vigne:welcomer:secret | | ID of the channel where messages of leaves and joins s
 vigne:welcomer:text:before | | Message, that should be displayed when a user joins. Example: `Welcome %s! Have fun!`
 vigne:welcomer:text:after | | After a short period of time, the original message gets replaced by this one. Example: `Welcome %s!`
 vigne:canPlayLive | | 1 or 0. Whether the music bot can play live streams or not.
+vigne:weebsh:token | | Token for the weeb.sh service.
+vigne:weebsh:tokenType | | Type of the weeb.sh token. Wither "bearer" or "wolke"
 
 ## Default commands
 
@@ -32,6 +34,8 @@ Every command starts with a prefix. With the default config there are multiple p
 ping | Pong!
 role | Gives the user a role according to vigne:roles. A user can only have one role from vigne:roles at a time.
 help | Lists all available, not hidden commands.
+types | Lists all types from weeb.sh
+image | Sends a random image with the specified type from weeb.sh
 roles | Hidden. Can only be used by moderators. Lists all roles available on the server and their IDs.
 replace | Hidden. Sends `Hello` then after a short while replaces the text with `World!`.
 

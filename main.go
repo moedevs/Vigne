@@ -10,6 +10,7 @@ import (
 	"github.com/moedevs/Vigne/modules/ping"
 	"github.com/moedevs/Vigne/modules/reactionMenu"
 	"github.com/moedevs/Vigne/modules/roles"
+	"github.com/moedevs/Vigne/modules/weebsh"
 	"github.com/moedevs/Vigne/modules/welcome"
 	"github.com/moedevs/Vigne/server"
 )
@@ -32,6 +33,7 @@ func main() {
 	s.RegisterModule(&help.HelpModule{})
 	s.RegisterModule(&reactionMenu.ReactionModule{})
 	s.RegisterModule(&music.MusicModule{})
+	s.RegisterModule(&weebsh.WeebshModule{})
 	fmt.Print("Running bot... ")
 	err = s.Start()
 	if err != nil {
