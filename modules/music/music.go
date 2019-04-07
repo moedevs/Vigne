@@ -139,7 +139,7 @@ func (p *MusicPlayer) play(m *Music, voice *discordgo.VoiceConnection) {
 	ytdlIn.Write([]byte(m.URL))
 	ytdlIn.Close()
 	//Copy opus data until skipped
-	opusData := make([]byte, 240) //240 is the framesize for Discordgo. It should probably be increased somehow
+	opusData := make([]byte, 240) //240 is the framesize for Discordgo. It should probably be increased somehow. EDIT: It is actually 960. Defaq
 	p.skip = false
 	for !p.skip {
 		_, err = io.ReadAtLeast(ffmpegOut, opusData, 240)
