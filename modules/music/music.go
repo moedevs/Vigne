@@ -46,7 +46,7 @@ func (p *MusicPlayer) Pump() {
 	}
 	//Get next songs until we run out of them
 	for url != nil {
-		p.play(url, voice)
+		p.play(url, voice.OpusSend)
 		url, err = p.PopNext()
 		if err != nil {
 			url = nil
@@ -62,7 +62,7 @@ func (p *MusicPlayer) Skip()  {
 	p.skip = true
 }
 
-func (p *MusicPlayer) play(m *Music, voice *discordgo.VoiceConnection) {
+func (p *MusicPlayer) play(m *Music, voiceSend chan []byte) {
 	p.CurrentlyPlaying = m
 	//Send message in music channel
 	//Get music channel
@@ -96,11 +96,11 @@ func (p *MusicPlayer) play(m *Music, voice *discordgo.VoiceConnection) {
 	//5. Copy song URL to ytdl STDIN
 	//6. Copy STDOUT of FFmpeg and channel it to discordgo
 	//7. After copying is done, wait for both processes
-	ytdl := exec.Command("youtube-dl", "-o", "-", "-a", "-")
+	ytdl := exec.Command("youtube-dl", "-o", "-", "-a", "-", "-f", "bestaudio")
 
 	//2 channel opus with a rate of 48000 and constant bitrate
 	//We are using the lowest quality settings
-	ffmpeg := exec.Command("ffmpeg", "-i", "-", "-f", "s8", "-ar", "48000", "-ac", "2", "-c:a", "libopus", "-vbr", "off", "-compression_level", "0", "-application", "voip", "-packet_loss", "25", "-") //Must be these values
+	ffmpeg := exec.Command("ffmpeg", "-i", "-", "-f", "s8", "-ar", "48000", "-ac", "2", "-c:a", "libopus", "-vbr", "off", "-compression_level", "0", "-application", "voip", "-packet_loss", "0", "-") //Must be these values
 	//Get stdio
 	ytdlIn, err := ytdl.StdinPipe()
 	if err != nil {
@@ -143,10 +143,12 @@ func (p *MusicPlayer) play(m *Music, voice *discordgo.VoiceConnection) {
 	p.skip = false
 	for !p.skip {
 		_, err = io.ReadAtLeast(ffmpegOut, opusData, 240)
+		if err == nil || err == io.ErrUnexpectedEOF {
+			voiceSend <- opusData
+		}
 		if err != nil {
 			break
 		}
-		voice.OpusSend <- opusData
 	}
 	//io.ReadAtLeast returned an error. This usually means that the stream has finished.
 	//Kill both processes

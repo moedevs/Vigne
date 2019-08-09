@@ -2,8 +2,8 @@ package music
 
 import (
 	"encoding/json"
+	"fmt"
 	"os/exec"
-	"strconv"
 )
 
 func GetInfo(url string) (*Music, error) {
@@ -41,5 +41,5 @@ func FormatTime(duration int) string {
 	duration %= 60*60
 	minutes := duration/60
 	seconds := duration%60
-	return strconv.Itoa(hours) + ":" + strconv.Itoa(minutes) + ":" + strconv.Itoa(seconds)
+	return fmt.Sprintf("%02d:%02d:%02d", hours, minutes, seconds)
 }
