@@ -10,6 +10,8 @@ type RedisContainer struct{
 	redis *redis.Client
 }
 
+
+
 func CreateContainer(prefix string, redis *redis.Client) *RedisContainer {
 	container := RedisContainer{}
 
@@ -28,6 +30,13 @@ func (r RedisContainer) Decorate(key string) string {
 }
 func (r RedisContainer) Value(key string) interfaces.StringValue {
 	return &RedisStringValue{
+		Key: key,
+		Container:r,
+	}
+}
+
+func (r RedisContainer) Integer(key string) interfaces.IntegerValue {
+	return &RedisIntegerValue{
 		Key: key,
 		Container:r,
 	}

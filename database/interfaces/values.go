@@ -7,6 +7,12 @@ type StringValue interface {
 	Get() string
 }
 
+type IntegerValue interface {
+	Set(value int) error
+	Get() (int, error)
+	Add(amount int) error
+}
+
 type MapValue interface {
 	Get(field string) StringValue
 	Contains(field string) bool
@@ -19,8 +25,10 @@ type SetValue interface {
 	Remove(member string) error
 }
 
+
 type Container interface{
 	Value(key string) StringValue
+	Integer(key string) IntegerValue
 	Map(key string) MapValue
 	Set(key string) SetValue
 	Decorate(key string) string
