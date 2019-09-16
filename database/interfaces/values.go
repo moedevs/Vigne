@@ -19,6 +19,12 @@ type MapValue interface {
 	//TODO: GetAll
 }
 
+type IntegerMapValue interface {
+	Get(field string) IntegerValue
+	Contains(field string) bool
+	//TODO: GetAll
+}
+
 type SetValue interface {
 	Add(member string) error
 	Contains(member string) bool
@@ -30,6 +36,7 @@ type Container interface{
 	Value(key string) StringValue
 	Integer(key string) IntegerValue
 	Map(key string) MapValue
+	IntegerMap(key string) IntegerMapValue
 	Set(key string) SetValue
 	Decorate(key string) string
 	GetContainer(key string) Container

@@ -49,6 +49,13 @@ func (r RedisContainer) Map(key string) interfaces.MapValue {
 	}
 }
 
+func (r RedisContainer) IntegerMap(key string) interfaces.IntegerMapValue {
+	return &RedisIntegerMap{
+		Key:key,
+		RedisContainer: r,
+	}
+}
+
 func (r RedisContainer) Set(key string) interfaces.SetValue {
 	return &RedisSetValue{
 		Key:key,
