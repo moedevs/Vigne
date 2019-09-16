@@ -23,7 +23,7 @@ vigne:welcomer:text:before | | Message, that should be displayed when a user joi
 vigne:welcomer:text:after | | After a short period of time, the original message gets replaced by this one. Example: `Welcome %s!`
 vigne:canPlayLive | | 1 or 0. Whether the music bot can play live streams or not.
 vigne:weebsh:token | | Token for the weeb.sh service.
-vigne:weebsh:tokenType | | Type of the weeb.sh token. Wither "bearer" or "wolke"
+vigne:weebsh:tokenType | | Type of the weeb.sh token. Either "bearer" or "wolke"
 
 ## Default commands
 
