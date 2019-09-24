@@ -1,6 +1,13 @@
 package interfaces
 
+import "errors"
+
 //TODO: Some kind of queue for the music module
+
+//Errors
+var (
+	ErrorNotFound = errors.New("couldn't find entry in database")
+)
 
 type StringValue interface {
 	Set(value string) error
@@ -16,13 +23,13 @@ type IntegerValue interface {
 type MapValue interface {
 	Get(field string) StringValue
 	Contains(field string) bool
-	//TODO: GetAll
+	GetAll() (map[string]StringValue, error)
 }
 
 type IntegerMapValue interface {
 	Get(field string) IntegerValue
 	Contains(field string) bool
-	//TODO: GetAll
+	GetAll() (map[string]IntegerValue, error)
 }
 
 type SetValue interface {

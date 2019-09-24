@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"github.com/go-redis/redis"
 	"github.com/moedevs/Vigne/database/interfaces"
 )
 
@@ -20,6 +21,21 @@ func (r RedisMapValueString) Get() string {
 type RedisMapValue struct {
 	RedisContainer
 	Key string
+}
+
+func (r RedisMapValue) GetAll() (map[string]interfaces.StringValue, error) {
+	result, err := r.redis.HGetAll(r.Decorate(r.Key)).Result()
+	if err == redis.Nil {
+		return nil, interfaces.ErrorNotFound
+	}
+	if err != nil {
+		return nil, err
+	}
+	o := map[string]interfaces.StringValue{}
+	for field, _ := range result {
+		o[field] = r.Get(field)
+	}
+	return o, nil
 }
 
 func (r RedisMapValue) Get(field string) interfaces.StringValue {

@@ -7,6 +7,7 @@ import (
 	"github.com/moedevs/Vigne/modules/debug"
 	"github.com/moedevs/Vigne/modules/help"
 	"github.com/moedevs/Vigne/modules/joined"
+	"github.com/moedevs/Vigne/modules/levels"
 	"github.com/moedevs/Vigne/modules/music"
 	"github.com/moedevs/Vigne/modules/ping"
 	"github.com/moedevs/Vigne/modules/reactionMenu"
@@ -14,9 +15,12 @@ import (
 	"github.com/moedevs/Vigne/modules/weebsh"
 	"github.com/moedevs/Vigne/modules/welcome"
 	"github.com/moedevs/Vigne/server"
+	"math/rand"
+	"time"
 )
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
 	fmt.Print("Creating bot... ")
 	s, err := server.NewServer("vigne", "localhost:6379", "")
 	if err != nil {
@@ -36,6 +40,7 @@ func main() {
 	s.RegisterModule(&music.MusicModule{})
 	s.RegisterModule(&weebsh.WeebshModule{})
 	s.RegisterModule(&joined.JoinedModule{})
+	s.RegisterModule(&levels.LevelsModule{})
 	fmt.Print("Running bot... ")
 	err = s.Start()
 	if err != nil {

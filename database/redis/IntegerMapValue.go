@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"github.com/go-redis/redis"
 	"github.com/moedevs/Vigne/database/interfaces"
 )
 
@@ -14,7 +15,11 @@ func (r RedisIntegerMapValue) Set(value int) error {
 }
 
 func (r RedisIntegerMapValue) Get() (int, error) {
-	return r.redis.HGet(r.Decorate(r.Key), r.Field).Int()
+	val, err :=  r.redis.HGet(r.Decorate(r.Key), r.Field).Int()
+	if err == redis.Nil {
+		return 0, nil
+	}
+	return val, err
 }
 
 func (r RedisIntegerMapValue) Add(amount int) error {
@@ -24,6 +29,18 @@ func (r RedisIntegerMapValue) Add(amount int) error {
 type RedisIntegerMap struct {
 	RedisContainer
 	Key string
+}
+
+func (r RedisIntegerMap) GetAll() (map[string]interfaces.IntegerValue, error) {
+	result, err := r.redis.HGetAll(r.Decorate(r.Key)).Result()
+	if err != nil {
+		return nil, err
+	}
+	o := map[string]interfaces.IntegerValue{}
+	for field, _ := range result {
+		o[field] = r.Get(field)
+	}
+	return o, nil
 }
 
 

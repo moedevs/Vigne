@@ -1,5 +1,9 @@
 package redis
 
+import (
+	"github.com/go-redis/redis"
+)
+
 type RedisIntegerValue struct {
 	Container RedisContainer
 	Key string
@@ -10,7 +14,11 @@ func (r RedisIntegerValue) Set(value int) error {
 }
 
 func (r RedisIntegerValue) Get() (int, error) {
-	return r.Container.redis.Get(r.Container.Decorate(r.Key)).Int()
+	val, err := r.Container.redis.Get(r.Container.Decorate(r.Key)).Int()
+	if err == redis.Nil {
+		return 0, nil
+	}
+	return val, err
 }
 
 func (r RedisIntegerValue) Add(amount int) error {
