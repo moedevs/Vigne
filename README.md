@@ -1,9 +1,11 @@
 # Vigne
 A Discord bot written in Go. Used by the [Gabriel Dropout](http://discord.gg/e2Svd88) server.
 
-## Install
+## Building
 ```shell
-$ go get https://github.com/bela333/Vigne
+$ git clone https://github.com/moedevs/Vigne
+$ cd Vigne
+$ go build .
 ```
 
 ## Database structure
